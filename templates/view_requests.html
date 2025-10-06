@@ -1,0 +1,81 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block title %}All Service Requests{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+    <h2 class="text-center mb-4 text-primary"><i class="bi bi-list-task me-2"></i>All Service Requests</h2>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover align-middle text-center">
+            <thead class="table-dark">
+                <tr>
+                    <th>Request ID</th>
+                    <th>Customer</th>
+                    <th>Device</th>
+                    <th>Status</th>
+                    <th>Warranty</th>
+                    <th>Assigned Technician</th>
+                    <th>Assign</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for req in requests %}
+                <tr>
+                    <td>{{ req.request_id }}</td>
+                    <td>{{ req.customer.name }}</td>
+                    <td>{{ req.device }}</td>
+                    <td>
+                        {% if req.status == "Completed" %}
+                            <span class="badge bg-success">Work Completed</span>
+                        {% elif req.status == "In Progress" %}
+                            <span class="badge bg-warning text-dark">{{ req.status }}</span>
+                        {% else %}
+                            <span class="badge bg-secondary">{{ req.status }}</span>
+                        {% endif %}
+                    </td>
+                    <td>{{ req.warranty_status }}</td>
+                    <td>
+                        {% if req.assigned_to %}
+                            <span class="text-success fw-bold">{{ req.assigned_to.name }}</span>
+                        {% else %}
+                            <span class="text-danger">Not assigned</span>
+                        {% endif %}
+                    </td>
+                    <td>
+                        {% if req.status == "Completed" %}
+                            <span class="text-muted">Already Completed</span>
+                        {% elif req.status == "In Progress" and req.assigned_to %}
+                            <span class="text-muted">Technician Assigned</span>
+                        {% else %}
+                            <form method="post" action="{% url 'assign_technician' req.request_id %}" class="d-flex justify-content-center align-items-center gap-2">
+                                {% csrf_token %}
+                                <select name="technician_id" class="form-select form-select-sm" style="max-width: 180px;">
+                                    <option value="">Select</option>
+                                    {% for tech in technicians %}
+                                    <option value="{{ tech.user_id }}">{{ tech.name }}</option>
+                                    {% endfor %}
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-primary">Assign</button>
+                            </form>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="7" class="text-center text-muted">No service requests found.</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Back to Admin Dashboard -->
+    <div class="text-center mt-4">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
+        </a>
+    </div>
+</div>
+{% endblock %}

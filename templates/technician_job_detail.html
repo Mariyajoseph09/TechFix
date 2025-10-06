@@ -1,0 +1,64 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Job #{{ job.request_id }} Details{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Header with optional image -->
+    <div class="text-center mb-4">
+        <h2 class="fw-bold text-primary"><i class="bi bi-tools me-2"></i>Job #{{ job.request_id }}</h2>
+        <p class="lead">
+            Device: <span class="fw-bold text-primary">{{ job.device }}</span>
+        </p>
+        <!-- Optional image for the job -->
+        <img src="{% static 'images/jobs.jpg' %}" class="img-fluid rounded shadow-sm" alt="Job Image" style="max-height: 200px;">
+    </div>
+
+    <!-- Job Details Card -->
+    <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+        <div class="card-body">
+            <h4 class="card-title mb-3">Job Details</h4>
+            
+            <ul class="list-group list-group-flush mb-3">
+                <li class="list-group-item"><strong>Customer:</strong> {{ job.customer.name }}</li>
+                <li class="list-group-item"><strong>Device:</strong> <span class="text-primary fw-bold">{{ job.device }}</span></li>
+                <li class="list-group-item"><strong>Issue:</strong> {{ job.description|default:"(no description)" }}</li>
+                <li class="list-group-item"><strong>Requested on:</strong> {{ job.request_date }}</li>
+                <li class="list-group-item"><strong>Warranty:</strong> {{ job.warranty_status }}</li>
+                <li class="list-group-item"><strong>Status:</strong> {{ job.status }}</li>
+                {% if job.feedback %}
+                <li class="list-group-item"><strong>Feedback:</strong> {{ job.feedback }}</li>
+                {% endif %}
+            </ul>
+
+            <!-- Action Buttons -->
+            <div class="d-flex flex-wrap gap-2">
+                <a href="{% url 'technician_dashboard' %}" class="btn btn-secondary">
+                    <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
+                </a>
+
+                <form method="post" action="{% url 'update_job' job.request_id %}">
+                    {% csrf_token %}
+                    {% if job.status != "In Progress" and job.status != "Completed" %}
+                    <button name="action" value="start" class="btn btn-primary">
+                        <i class="bi bi-play-circle me-1"></i> Start Job
+                    </button>
+                    {% endif %}
+                </form>
+
+                <form method="post" action="{% url 'update_job' job.request_id %}">
+                    {% csrf_token %}
+                    {% if job.status != "Completed" %}
+                    <button name="action" value="complete" class="btn btn-success" onclick="return confirm('Mark this job as completed?')">
+                        <i class="bi bi-check-circle me-1"></i> Mark Completed
+                    </button>
+                    {% endif %}
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

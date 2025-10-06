@@ -1,0 +1,78 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Customer Dashboard{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <!-- Header Image -->
+    <!-- Full Banner -->
+<div class="mb-4" style="height: 400px; overflow: hidden; border-radius: 15px;">
+    <img src="{% static 'images/customer.jpg' %}" 
+         alt="Dashboard Header" 
+         style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+</div>
+
+
+
+
+
+
+    <!-- Welcome Section -->
+    <div class="text-center mb-5">
+        <h2 class="display-5 text-white">
+            <i class="bi bi-person-circle"></i> Welcome, {{ user.name|default:"User" }}
+        </h2>
+        <p class="text-light">Manage your repair requests and track progress easily.</p>
+    </div>
+
+    <!-- Dashboard Cards -->
+    <div class="row justify-content-center">
+
+        <!-- My Requests Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 text-center">
+                <img src="{% static 'images/my_requests.jpg' %}" class="card-img-top mx-auto mt-3" alt="My Requests" style="width: 80px;">
+                <div class="card-body">
+                    <h5 class="card-title text-success">
+                        <i class="bi bi-card-list"></i> My Requests
+                    </h5>
+                    <p class="card-text">Check status of your ongoing repair requests.</p>
+                    <a href="{% url 'my_requests' %}" class="btn btn-primary">
+                        <i class="bi bi-eye"></i> View Requests
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Request Repair Card -->
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm h-100 text-center">
+                <img src="{% static 'images/request_repair.jpg' %}" class="card-img-top mx-auto mt-3" alt="Request Repair" style="width: 80px;">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="bi bi-tools"></i> Request a Repair
+                    </h5>
+                    <p class="card-text">Submit a new repair request quickly and easily.</p>
+                    <a href="{% url 'repair_request' %}" class="btn btn-success">
+                        <i class="bi bi-plus-circle"></i> Request Now
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End Row -->
+
+</div> <!-- End Container -->
+
+<style>
+    .container {
+        background: linear-gradient(to bottom right, #1f4b77, #245c99);
+        border-radius: 20px;
+        padding: 40px 20px;
+    }
+</style>
+{% endblock %}
+
+

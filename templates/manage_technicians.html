@@ -1,0 +1,90 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Manage Technicians{% endblock %}
+
+{% block content %}
+<div class="container my-5">
+
+    <h2 class="text-center mb-4 text-primary"><i class="bi bi-person-badge me-2"></i> Manage Technicians</h2>
+
+    <!-- Add New Technician Card -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-success text-white">
+            <h5 class="mb-0"><i class="bi bi-plus-circle me-2"></i> Add New Technician</h5>
+        </div>
+        <div class="card-body">
+            <form method="post" class="row g-3 align-items-center">
+                {% csrf_token %}
+                <input type="hidden" name="add_tech" value="1">
+                
+                <div class="col-md-3">
+                    <input type="text" name="name" placeholder="Name" class="form-control" required>
+                </div>
+                <div class="col-md-3">
+                    <input type="email" name="email" placeholder="Email" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="text" name="phone" placeholder="Phone" class="form-control" required>
+                </div>
+                <div class="col-md-2">
+                    <input type="password" name="password" placeholder="Password" class="form-control" required>
+                </div>
+                <div class="col-md-2 d-grid">
+                    <button type="submit" class="btn btn-success"><i class="bi bi-person-plus me-1"></i> Add Technician</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Existing Technicians Table -->
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h5 class="mb-0"><i class="bi bi-people me-2"></i> Existing Technicians</h5>
+        </div>
+        <div class="card-body table-responsive">
+            <table class="table table-bordered table-hover align-middle text-center mb-0">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Phone</th>
+                        <th>Password</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for tech in technicians %}
+                    <tr>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="tech_id" value="{{ tech.user_id }}">
+                            <td><input type="text" name="name" value="{{ tech.name }}" class="form-control"></td>
+                            <td><input type="email" name="email" value="{{ tech.email }}" class="form-control"></td>
+                            <td><input type="text" name="phone" value="{{ tech.phone }}" class="form-control"></td>
+                            <td><input type="password" name="password" value="{{ tech.password }}" class="form-control"></td>
+                            <td class="d-flex gap-2 justify-content-center">
+                                <button type="submit" name="edit_tech" class="btn btn-sm btn-primary"><i class="bi bi-pencil-square me-1"></i> Update</button>
+                                <button type="submit" name="delete_tech" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure?')"><i class="bi bi-trash me-1"></i> Delete</button>
+                            </td>
+                        </form>
+                    </tr>
+                    {% empty %}
+                    <tr>
+                        <td colspan="5" class="text-center text-muted">No technicians found.</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- Back to Admin Dashboard -->
+    <div class="text-center mt-4">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
+        </a>
+    </div>
+
+</div>
+{% endblock %}

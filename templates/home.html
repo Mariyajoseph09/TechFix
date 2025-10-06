@@ -1,0 +1,74 @@
+{% extends 'base_home.html' %}
+{% load static %}
+
+{% block title %}Home - TechFix{% endblock %}
+
+{% block header %}
+<header class="hero py-5 bg-light">
+  <div class="container">
+    <div class="row align-items-center">
+
+      <!-- Left column: text and buttons -->
+      <div class="col-md-6 text-center text-md-start">
+        <h1 class="display-4 fw-bold text-primary"><i class="bi bi-tools me-2"></i>TechFix</h1>
+        <p class="lead text-dark">Track. Repair. Complete – All in one place.</p>
+      </div>
+
+      <!-- Right column: image -->
+      <div class="col-md-6 text-center">
+        <!--<img src="{% static 'images/digital_repair.jpg' %}" -->
+            <!-- class="img-fluid rounded shadow" 
+             alt="Repair Illustration"
+             style="max-width: 400px;">-->
+      </div>
+
+    </div>
+  </div>
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="row mt-5 justify-content-center">
+
+    <!-- Card 1 -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title text-primary">Quick Repairs</h5>
+                <p class="card-text">Easily request a repair and track the progress in real-time.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 2 -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title text-success">Technician Support</h5>
+                <p class="card-text">Assigned technicians update the status at every step.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Card 3 -->
+    <div class="col-md-4 mb-4">
+        <div class="card shadow-sm h-100 text-center">
+            <div class="card-body">
+                <h5 class="card-title text-dark">Dashboard</h5>
+                <p class="card-text">Manage requests, track progress, and keep everything organized.</p>
+             <!--  <a href="{% url 'customer_dashboard' %}" class="btn btn-primary">--> 
+                    <i class="bi bi-speedometer2 me-1"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}
+
+
+    <!--<h1>Welcome to Digital Repair Service</h1>
+    <a href="{% url 'login' %}"><button>Login</button></a>
+    <a href="{% url 'register' %}"><button>Register</button></a>
+</body>
+</html> -->

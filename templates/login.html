@@ -1,0 +1,51 @@
+{% extends 'base_dashboard.html' %}
+
+{% block title %}Login - Digital Repair & Service Tracker{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center align-items-center" style="min-height: 70vh;">
+        <div class="col-md-6 col-lg-5">
+            <!-- Card for login form -->
+            <div class="card shadow p-4 rounded">
+                <h3 class="text-center mb-4 text-primary">Login</h3>
+
+                <form method="POST">
+                    {% csrf_token %}
+
+                    <!-- Email input -->
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Email</label>
+                        <input type="email" name="email" class="form-control" id="email" required>
+                    </div>
+
+                    <!-- Password input -->
+                    <div class="mb-3">
+                        <label for="password" class="form-label">Password</label>
+                        <input type="password" name="password" class="form-control" id="password" required>
+                    </div>
+
+                    <!-- Submit button -->
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Login</button>
+                    </div>
+
+                    <!-- Display error messages -->
+                    {% if messages %}
+                        <div class="mt-3">
+                            {% for message in messages %}
+                                <p class="text-danger">{{ message }}</p>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Register link -->
+                    <p class="text-center mt-3">
+                        Don't have an account? <a href="{% url 'register' %}">Register</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

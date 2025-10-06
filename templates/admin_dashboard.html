@@ -1,0 +1,86 @@
+{% extends 'base_dashboard.html' %}
+{% load static %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<!-- Header / Top Image -->
+<div class="container-fluid p-0 position-relative">
+    <img src="{% static 'images/admin.jpg' %}" 
+         class="img-fluid w-100" 
+         alt="Admin Dashboard Banner" 
+         style="height: 400px; object-fit: cover;">
+    
+    <!-- Logout button top-right, outside the banner text -->
+    <a href="{% url 'logout' %}" class="btn btn-danger position-absolute top-0 end-0 m-3">Logout</a>
+
+    <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
+        <h1 class="fw-bold">Welcome, Admin {{ user.name }}</h1>
+    </div>
+</div>
+
+<div class="container my-5">
+    <h3 class="mb-4 text-center">Admin Panel</h3>
+    <div class="row g-4 justify-content-center">
+
+        <!-- Card 1: View Requests -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-primary"><i class="bi bi-card-list me-2"></i>View Requests</h5>
+                    <p class="card-text">Check all repair requests submitted by customers.</p>
+                    <a href="{% url 'view_requests' %}" class="btn btn-primary">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 2: View/Edit Customers -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-success"><i class="bi bi-people me-2"></i>Customers</h5>
+                    <p class="card-text">View or edit customer information.</p>
+                    <a href="{% url 'view_customers' %}" class="btn btn-success">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 3: Manage Technicians -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-warning"><i class="bi bi-person-badge me-2"></i>Technicians</h5>
+                    <p class="card-text">Add, remove, or update technician details.</p>
+                    <a href="{% url 'manage_technicians' %}" class="btn btn-warning text-white">Go</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card 4: View Feedbacks -->
+        <div class="col-md-4">
+            <div class="card shadow-sm text-center h-100">
+                <div class="card-body">
+                    <h5 class="card-title text-info"><i class="bi bi-chat-left-text me-2"></i>Feedbacks</h5>
+                    <p class="card-text">Check customer feedback and ratings.</p>
+                    <a href="{% url 'admin_feedbacks' %}" class="btn btn-info text-white">Go</a>
+                </div>
+            </div>
+        </div>
+
+    </div> <!-- End Row -->
+</div>
+
+<!-- Optional custom CSS -->
+<style>
+    html, body {
+        height: 100%;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+    }
+    main.container {
+        flex: 1 0 auto;
+    }
+</style>
+{% endblock %}
