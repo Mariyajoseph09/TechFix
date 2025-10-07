@@ -36,6 +36,14 @@ urlpatterns = [
    # path('technician_feedbacks/', views.technician_feedbacks, name='technician_feedbacks'),
     path("add_feedback/<int:request_id>/", views.add_feedback, name="add_feedback"),
    # path('technician/feedback/<int:req_id>/', views.technician_feedback_detail, name='technician_feedback_detail'),
+    path('payment/<int:service_id>/', views.make_payment, name='make_payment'),
+    #path('payment/history/', views.payment_history, name='payment_history'),
+
+
+
+
+
+
 
 
 

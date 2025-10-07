@@ -1,0 +1,17 @@
+{% extends 'base.html' %}  <!-- or your main template -->
+
+{% block content %}
+<h2>Pay for Service #{{ service.id }}</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    <p>Amount: <input type="text" name="amount" value="{{ service.estimated_cost }}" required></p>
+    <p>Payment Method:
+        <select name="method">
+          <!-- <option value="Online">Online</option>--> 
+            <option value="Offline">Offline</option>
+        </select>
+    </p>
+    <button type="submit">Pay Now</button>
+</form>
+{% endblock %}

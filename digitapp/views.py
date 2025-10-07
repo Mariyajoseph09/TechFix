@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from .models import CustomUser
-from .models import ServiceRequest
+from .models import ServiceRequest, Payment
 from .models import Feedback
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -624,3 +624,137 @@ def add_feedback(request, request_id):
         return render(request, "add_feedback.html", {"request_obj": service_request, "user_logged_in": True})
 
     return render(request, "add_feedback.html", {"request_obj": service_request, "user_logged_in": True})
+
+
+
+
+
+
+
+
+#@login_required
+#def make_payment(request, service_id):
+ #   service = get_object_or_404(ServiceRequest, request_id=service_id)
+
+  #  if service.status != "Completed":
+   #     messages.warning(request, "You can only pay for completed services.")
+    #    return redirect('view_requests')
+
+  #  if hasattr(service, 'payment') and service.payment.exists():
+   #     messages.info(request, "Payment has already been made for this service.")
+    #    return redirect('view_requests')
+    
+
+    # Check if Payment already exists
+    #try:
+     #   payment = service.payment
+        # If already completed, no need to pay again
+      #  if payment.status == 'Completed':
+       #     messages.info(request, "Payment has already been completed.")
+        #    return redirect('view_requests')
+    #except Payment.DoesNotExist:
+     #   payment = None  # Payment not yet created
+
+    #if request.method == "POST":
+     #   amount = payment.amount if payment else 0  # Take admin-set amount
+
+        # Create Payment record if not exists
+       #3 if not payment:
+      #     Payment.objects.create(
+        #        service_request=service,
+         #       amount=amount,
+          #      payment_method='Online',
+           #     status='Completed'
+            #)
+        #else:
+            # If payment object exists but status not completed, mark it completed
+          #  payment.status = 'Completed'
+         #   payment.save()
+
+        #messages.success(request, "Payment done successfully!")
+        #return redirect('view_requests')
+
+    #return render(request, 'customer_pay.html', {'service': service, 'payment': payment})
+   # if request.method == "POST":
+    #    amount = request.POST.get('amount')
+      #  method = request.POST.get('method')
+
+     #   Payment.objects.create(
+      #      service_request=service,
+       #     amount=amount,
+        #    payment_method='Online',
+         #   status='Completed'
+        #)
+
+        #messages.success(request, "Payment added successfully!")
+        #return redirect('view_requests')
+
+    #return render(request, 'customer_pay.html', {'service': service})
+
+
+
+
+#@login_required
+from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib import messages
+from .models import ServiceRequest, Payment
+
+def make_payment(request, service_id):
+    # Get the service request
+    service = get_object_or_404(ServiceRequest, request_id=service_id)
+
+    # ---------------- ADMIN FUNCTIONALITY ----------------
+    if request.session.get('user_type') == 'Admin':
+        if request.method == "POST":
+            amount = request.POST.get("amount")
+            method = request.POST.get("method")
+
+            if not amount or not method:
+                messages.error(request, "Please enter amount and method.")
+                # Stay on the same page
+                return redirect(request.META.get('HTTP_REFERER', '/'))
+
+            # Create or update payment for this service request
+            payment, created = Payment.objects.get_or_create(
+                service_request=service,
+                defaults={
+                    'amount': amount,
+                    'payment_method': method,
+                    'status': 'Pending'
+                }
+            )
+
+            if not created:
+                payment.amount = amount
+                payment.payment_method = method
+                payment.save()
+
+            messages.success(request, "Payment amount added successfully.")
+            return redirect(request.META.get('HTTP_REFERER', '/'))
+
+        # GET request for admin: just redirect back
+        return redirect(request.META.get('HTTP_REFERER', '/'))
+
+    # ---------------- CUSTOMER FUNCTIONALITY ----------------
+    elif request.session.get('user_type') == 'Customer':
+        # Only allow viewing if service is completed
+        if service.status != "Completed":
+            messages.warning(request, "Service not completed yet.")
+            return redirect('view_requests')
+
+        # Try to get payment; can be None
+        try:
+            payment = service.payment
+        except Payment.DoesNotExist:
+            payment = None
+
+        # Render a simple page showing the amount (read-only)
+        return render(request, 'view_payment.html', {
+            'service': service,
+            'payment': payment
+        })
+
+    # ---------------- NOT LOGGED IN ----------------
+    else:
+        messages.error(request, "Please log in first.")
+        return redirect('login')

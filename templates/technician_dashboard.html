@@ -4,7 +4,6 @@
 {% block title %}Technician Dashboard{% endblock %}
 
 {% block content %}
-<!-- Header / Top Image -->
 <div class="container-fluid p-0">
     <div class="position-relative">
         <img src="{% static 'images/mango.jpg' %}" class="img-fluid w-100" alt="Technician Dashboard Banner" style="max-height: 250px; object-fit: cover;">
@@ -27,6 +26,7 @@
                         <th>Device</th>
                         <th>Customer</th>
                         <th>Status</th>
+                        <th>Payment Amount</th> <!-- Changed column -->
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -37,6 +37,13 @@
                         <td>{{ job.device }}</td>
                         <td>{{ job.customer.name }}</td>
                         <td>{{ job.status }}</td>
+                        <td>
+                            {% if job.payment %}
+                                ₹{{ job.payment.amount }}
+                            {% else %}
+                                <span class="text-muted">Amount not added</span>
+                            {% endif %}
+                        </td>
                         <td>
                             <a href="{% url 'technician_job_detail' job.request_id %}" class="btn btn-sm btn-primary">Details</a>
                         </td>
@@ -49,18 +56,4 @@
         <p class="text-center">No assigned jobs at the moment.</p>
     {% endif %}
 </div>
-
-<!-- Optional custom CSS -->
-<style>
-    html, body {
-        height: 100%;
-    }
-    body {
-        display: flex;
-        flex-direction: column;
-    }
-    main.container {
-        flex: 1 0 auto;
-    }
-</style>
 {% endblock %}

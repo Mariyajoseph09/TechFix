@@ -18,6 +18,7 @@
                     <th>Warranty</th>
                     <th>Assigned Technician</th>
                     <th>Assign</th>
+                    <th>Payment</th> <!-- Added -->
                 </tr>
             </thead>
             <tbody>
@@ -61,10 +62,27 @@
                             </form>
                         {% endif %}
                     </td>
+                    <td>
+                        {% if req.payment %}
+                            <span class="text-success">₹{{ req.payment.amount }} ({{ req.payment.payment_method }})</span>
+                        {% elif req.status == "Completed" %}
+                            <form method="post" action="{% url 'make_payment' req.request_id %}" class="d-flex gap-2 justify-content-center">
+                                {% csrf_token %}
+                                <input type="number" name="amount" placeholder="Amount" class="form-control form-control-sm" style="max-width: 90px;" required>
+                                <select name="method" class="form-select form-select-sm" style="max-width: 100px;" required>
+                                    <option value="">Method</option>
+                                    <option value="Offline">Offline</option>
+                                </select>
+                                <button type="submit" class="btn btn-sm btn-success">Add</button>
+                            </form>
+                        {% else %}
+                            <span class="text-muted">Pending Completion</span>
+                        {% endif %}
+                    </td>
                 </tr>
                 {% empty %}
                 <tr>
-                    <td colspan="7" class="text-center text-muted">No service requests found.</td>
+                    <td colspan="8" class="text-center text-muted">No service requests found.</td>
                 </tr>
                 {% endfor %}
             </tbody>

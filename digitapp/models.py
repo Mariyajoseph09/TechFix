@@ -1,6 +1,11 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import User
+
+
+
+
+
 #from .models import customuser
 
 
@@ -86,3 +91,31 @@ class Feedback(models.Model):
 
     def __str__(self):
         return f"Feedback {self.feedback_id} - Rating {self.rating}"
+
+
+
+
+
+
+
+class Payment(models.Model):
+    PAYMENT_METHODS = [
+        ('Online', 'Online'),
+        ('Offline', 'Offline'),
+    ]
+
+    STATUS_CHOICES = [
+        ('Pending', 'Pending'),
+        ('Completed', 'Completed'),
+        ('Failed', 'Failed'),
+    ]
+
+    service_request = models.OneToOneField(ServiceRequest, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='Pending')
+    transaction_id = models.CharField(max_length=100, blank=True, null=True)
+    payment_date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Payment for Service #{self.service_request.id} - {self.status}"

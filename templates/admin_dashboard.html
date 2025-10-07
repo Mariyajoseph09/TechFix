@@ -11,7 +11,6 @@
          alt="Admin Dashboard Banner" 
          style="height: 400px; object-fit: cover;">
     
-    <!-- Logout button top-right, outside the banner text -->
     <a href="{% url 'logout' %}" class="btn btn-danger position-absolute top-0 end-0 m-3">Logout</a>
 
     <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
@@ -67,20 +66,8 @@
             </div>
         </div>
 
+       
+
     </div> <!-- End Row -->
 </div>
-
-<!-- Optional custom CSS -->
-<style>
-    html, body {
-        height: 100%;
-    }
-    body {
-        display: flex;
-        flex-direction: column;
-    }
-    main.container {
-        flex: 1 0 auto;
-    }
-</style>
 {% endblock %}
