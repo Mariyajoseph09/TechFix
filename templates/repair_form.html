@@ -4,11 +4,28 @@
 {% block title %}Submit Repair Request{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container my-5 violet-bg rounded-4 p-4">
+<style>
+    body {
+        background: linear-gradient(90deg, #4b006e 0%, #b39ddb 100%) !important;
+    }
+    .violet-bg {
+        background: linear-gradient(135deg, #b39ddb 0%, #ede7f6 100%);
+        border: 2px solid #7c43bd;
+        box-shadow: 0 8px 32px rgba(75,0,110,0.08);
+    }
+    .violet-header {
+        background: linear-gradient(90deg, #7c43bd 0%, #4b006e 100%);
+        color: #fff;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 2px 8px rgba(124,67,189,0.10);
+        border-bottom: 2px solid #7c43bd;
+    }
+</style>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white">
+                <div class="card-header violet-header text-white">
                     <h4 class="mb-0"><i class="bi bi-tools me-2"></i>Submit a New Repair Request</h4>
                 </div>
                 <div class="card-body">
@@ -18,7 +35,17 @@
                         <!-- Device Input -->
                         <div class="mb-3">
                             <label for="device" class="form-label">Device</label>
-                            <input type="text" class="form-control" id="device" name="device" placeholder="Enter device name" required>
+                            <select class="form-select" id="device" name="device" required>
+                                <option value="">Select device</option>
+                                <option value="Phone">Phone</option>
+                                <option value="TV">TV</option>
+                                <option value="Laptop">Laptop</option>
+                                <option value="Computer">Computer</option>
+                                <option value="Tablet">Tablet</option>
+                                <option value="Camera">Camera</option>
+                                <option value="Speaker">Speaker</option>
+                                <option value="Other">Other</option>
+                            </select>
                         </div>
 
                         <!-- Issue Description -->

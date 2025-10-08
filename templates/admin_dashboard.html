@@ -5,69 +5,131 @@
 
 {% block content %}
 <!-- Header / Top Image -->
-<div class="container-fluid p-0 position-relative">
-    <img src="{% static 'images/admin.jpg' %}" 
-         class="img-fluid w-100" 
-         alt="Admin Dashboard Banner" 
-         style="height: 400px; object-fit: cover;">
-    
-    <a href="{% url 'logout' %}" class="btn btn-danger position-absolute top-0 end-0 m-3">Logout</a>
-
+<div class="container-fluid p-0 position-relative violet-admin-bg">
+    <div class="dashboard-img-wrapper">
+        <img src="{% static 'images/adminn.jpg' %}"
+             class="img-fluid dashboard-img-move"
+             alt="Admin Dashboard Banner">
+    </div>
+    <div class="dashboard-quote position-absolute">
+        <blockquote class="blockquote text-white">
+            <p class="mb-0">"Innovation distinguishes between a leader and a follower."</p>
+            <footer class="blockquote-footer text-white-50">Steve Jobs</footer>
+        </blockquote>
+    </div>
+    <a href="{% url 'logout' %}" class="btn btn-violet position-absolute top-0 end-0 m-3">Logout</a>
     <div class="position-absolute top-50 start-50 translate-middle text-white text-center">
         <h1 class="fw-bold">Welcome, Admin {{ user.name }}</h1>
     </div>
 </div>
-
-<div class="container my-5">
-    <h3 class="mb-4 text-center">Admin Panel</h3>
+<div class="container my-5 bg-white p-4 rounded shadow">
+    <h3 class="mb-4 text-center text-violet">Your Task </h3>
     <div class="row g-4 justify-content-center">
-
         <!-- Card 1: View Requests -->
         <div class="col-md-4">
-            <div class="card shadow-sm text-center h-100">
+            <div class="card shadow-sm text-center h-100 admin-card-modern">
                 <div class="card-body">
-                    <h5 class="card-title text-primary"><i class="bi bi-card-list me-2"></i>View Requests</h5>
+                    <h5 class="card-title text-violet"><i class="bi bi-card-list me-2"></i>View Requests</h5>
                     <p class="card-text">Check all repair requests submitted by customers.</p>
-                    <a href="{% url 'view_requests' %}" class="btn btn-primary">Go</a>
+                    <a href="{% url 'view_requests' %}" class="btn btn-violet">Go</a>
                 </div>
             </div>
         </div>
-
         <!-- Card 2: View/Edit Customers -->
         <div class="col-md-4">
-            <div class="card shadow-sm text-center h-100">
+            <div class="card shadow-sm text-center h-100 admin-card-modern">
                 <div class="card-body">
-                    <h5 class="card-title text-success"><i class="bi bi-people me-2"></i>Customers</h5>
+                    <h5 class="card-title text-violet"><i class="bi bi-people me-2"></i>Customers</h5>
                     <p class="card-text">View or edit customer information.</p>
-                    <a href="{% url 'view_customers' %}" class="btn btn-success">Go</a>
+                    <a href="{% url 'view_customers' %}" class="btn btn-violet">Go</a>
                 </div>
             </div>
         </div>
-
         <!-- Card 3: Manage Technicians -->
         <div class="col-md-4">
-            <div class="card shadow-sm text-center h-100">
+            <div class="card shadow-sm text-center h-100 admin-card-modern">
                 <div class="card-body">
-                    <h5 class="card-title text-warning"><i class="bi bi-person-badge me-2"></i>Technicians</h5>
+                    <h5 class="card-title text-violet"><i class="bi bi-person-badge me-2"></i>Technicians</h5>
                     <p class="card-text">Add, remove, or update technician details.</p>
-                    <a href="{% url 'manage_technicians' %}" class="btn btn-warning text-white">Go</a>
+                    <a href="{% url 'manage_technicians' %}" class="btn btn-violet">Go</a>
                 </div>
             </div>
         </div>
-
         <!-- Card 4: View Feedbacks -->
         <div class="col-md-4">
-            <div class="card shadow-sm text-center h-100">
+            <div class="card shadow-sm text-center h-100 admin-card-modern">
                 <div class="card-body">
-                    <h5 class="card-title text-info"><i class="bi bi-chat-left-text me-2"></i>Feedbacks</h5>
+                    <h5 class="card-title text-violet"><i class="bi bi-chat-left-text me-2"></i>Feedbacks</h5>
                     <p class="card-text">Check customer feedback and ratings.</p>
-                    <a href="{% url 'admin_feedbacks' %}" class="btn btn-info text-white">Go</a>
+                    <a href="{% url 'admin_feedbacks' %}" class="btn btn-violet">Go</a>
                 </div>
             </div>
         </div>
-
-       
-
     </div> <!-- End Row -->
 </div>
+<style>
+    .violet-admin-bg {
+        background: linear-gradient(90deg, #4b006e 0%, #b39ddb 100%);
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+    }
+    .dashboard-img-wrapper {
+        height: 400px;
+        overflow: hidden;
+        position: relative;
+    }
+    .dashboard-img-move {
+        position: absolute;
+        right: 12px;
+        top: 60px;
+        width: 300px;
+        height: 300px;
+        object-fit: cover;
+        transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
+        cursor: zoom-in;
+    }
+    .dashboard-img-move:hover {
+        transform: scale(1.12);
+        z-index: 2;
+        cursor: zoom-out;
+    }
+    .dashboard-quote {
+        left: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        max-width: 300px;
+        text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        animation: moveQuote 3s ease-in-out infinite;
+    }
+    @keyframes moveQuote {
+        0% { transform: translateY(-50%) translateX(-10px); }
+        50% { transform: translateY(-50%) translateX(10px); }
+        100% { transform: translateY(-50%) translateX(-10px); }
+    }
+
+    .admin-card-modern {
+        background: linear-gradient(135deg, #f8fbff 0%, #e3f0ff 100%);
+        border-radius: 18px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .admin-card-modern:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
+    }
+    .btn-violet {
+        background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.12);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .btn-violet:hover, .btn-violet:focus {
+        background: linear-gradient(90deg, #4b006e 0%, #7c43bd 100%);
+        color: #fff;
+        transform: scale(1.04);
+    }
+    .text-violet {
+        color: #7c43bd;
+    }
+</style>
 {% endblock %}

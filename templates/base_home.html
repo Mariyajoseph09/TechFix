@@ -16,9 +16,8 @@
     <link rel="stylesheet" href="{% static 'css/custom.css' %}">
 </head>
 <body class="bg-light">
-
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary shadow">
+    <nav class="navbar navbar-expand-lg navbar-dark shadow violet-navbar">
         <div class="container">
             <a class="navbar-brand fw-bold d-flex align-items-center" href="{% url 'home' %}">
                 <i class="bi bi-tools me-2"></i> TechFix
@@ -48,10 +47,10 @@
     </main>
 
     <!-- About Us Section -->
-    <section class="bg-light py-5">
+    <section class="about-violet py-5">
         <div class="container text-center">
-            <h2 class="text-primary mb-3">About TechFix</h2>
-            <p class="lead text-dark">TechFix is your reliable platform to request and track device repairs, with real-time updates from technicians.Our Digital Repair and Service Tracker is designed to simplify the process of managing repair requests, tracking service status, and improving communication between customers, technicians, and administrators. We aim to provide a user-friendly system that ensures transparency, efficiency, and reliable service management</p>
+            <h2 class="mb-3" style="color:#ede7f6;">About TechFix</h2>
+            <p class="lead" style="color:#d1c4e9;">TechFix is your reliable platform to request and track device repairs, with real-time updates from technicians. Our Digital Repair and Service Tracker is designed to simplify the process of managing repair requests, tracking service status, and improving communication between customers, technicians, and administrators. We aim to provide a user-friendly system that ensures transparency, efficiency, and reliable service management.</p>
         </div>
     </section>
 
@@ -60,7 +59,24 @@
         <p class="mb-0">&copy; 2025 TechFix | All Rights Reserved | Contact: 9074546058</p>
     </footer>
 
-    <!-- Bootstrap JS -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <!-- Bootstrap JS -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <style>
+            .about-violet {
+                background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%) !important;
+                border-radius: 18px;
+                box-shadow: 0 4px 24px rgba(75,0,110,0.08);
+            }
+            .violet-navbar {
+                background: linear-gradient(90deg, #4b006e 0%, #b39ddb 100%) !important;
+                border-bottom: 3px solid #7c43bd;
+            }
+            .navbar .nav-link, .navbar .navbar-brand, .navbar .navbar-toggler {
+                color: #fff !important;
+            }
+            .navbar .nav-link:hover, .navbar .navbar-brand:hover {
+                color: #ede7f6 !important;
+            }
+        </style>
 </body>
 </html>

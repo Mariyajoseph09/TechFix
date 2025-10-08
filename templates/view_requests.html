@@ -4,12 +4,22 @@
 {% block title %}All Service Requests{% endblock %}
 
 {% block content %}
-<div class="container my-5">
+<div class="container my-5 violet-bg rounded-4 p-4">
+<style>
+    body {
+        background: linear-gradient(90deg, #4b006e 0%, #b39ddb 100%) !important;
+    }
+    .violet-bg {
+        background: linear-gradient(135deg, #b39ddb 0%, #ede7f6 100%);
+        border: 2px solid #7c43bd;
+        box-shadow: 0 8px 32px rgba(75,0,110,0.08);
+    }
+</style>
     <h2 class="text-center mb-4 text-primary"><i class="bi bi-list-task me-2"></i>All Service Requests</h2>
 
     <div class="table-responsive">
         <table class="table table-bordered table-hover align-middle text-center">
-            <thead class="table-dark">
+            <thead class="custom-table-header">
                 <tr>
                     <th>Request ID</th>
                     <th>Customer</th>

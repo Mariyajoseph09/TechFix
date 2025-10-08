@@ -4,69 +4,143 @@
 {% block title %}Customer Dashboard{% endblock %}
 
 {% block content %}
-<div class="container my-5">
 
-    <!-- Header Image -->
-    <div class="mb-4" style="height: 400px; overflow: hidden; border-radius: 15px;">
-        <img src="{% static 'images/customer.jpg' %}" 
-             alt="Dashboard Header" 
-             style="width: 100%; height: 100%; object-fit: cover; object-position: center;">
+<!-- Hero Section with Image on Right and Quotes -->
+<div class="container-fluid hero-image mb-5 py-4">
+    <div class="row align-items-center">
+        <div class="col-lg-7 text-center text-lg-start">
+            <h1 class="display-3 fw-bold text-white mb-3 text-shadow">
+                <i class="bi bi-person-circle"></i> Welcome, {{ user.name|default:"User" }}
+            </h1>
+            <p class="lead text-light fs-4 text-shadow">Manage your repair requests and track progress easily.</p>
+            <div id="customer-quotes" class="mt-4">
+                <span class="quote text-light fs-5"></span>
+            </div>
+        </div>
+        <div class="col-lg-5 text-center mt-4 mt-lg-0">
+            <div class="dashboard-img-wrapper mx-auto">
+                <img src="{% static 'images/banana.jpg' %}" alt="Customer Dashboard" class="dashboard-img-move rounded shadow-lg" style="max-width: 350px; height: 260px; object-fit: cover;">
+        </div>
     </div>
+</div>
 
-    <!-- Welcome Section -->
-    <div class="text-center mb-5">
-        <h2 class="display-5 text-white">
-            <i class="bi bi-person-circle"></i> Welcome, {{ user.name|default:"User" }}
-        </h2>
-        <p class="text-light">Manage your repair requests and track progress easily.</p>
-    </div>
-
-    <!-- Dashboard Cards -->
-    <div class="row justify-content-center">
-
+<!-- Dashboard Cards -->
+<div class="container">
+    <div class="row justify-content-center g-5">
         <!-- My Requests Card -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100 text-center">
-                <img src="{% static 'images/my_requests.jpg' %}" class="card-img-top mx-auto mt-3" alt="My Requests" style="width: 80px;">
-                <div class="card-body">
-                    <h5 class="card-title text-success">
+        <div class="col-md-5 col-lg-4">
+            <div class="card border-0 shadow h-100 text-center dashboard-card-modern">
+                <div class="card-body py-4">
+                    <img src="{% static 'images/my_requests.jpg' %}" class="mb-3 rounded-circle shadow" alt="My Requests" style="width: 100px;">
+                    <h5 class="card-title text-success fw-bold mb-2">
                         <i class="bi bi-card-list"></i> My Requests
                     </h5>
-                    <p class="card-text">Check status of your ongoing repair requests.</p>
-                    <a href="{% url 'my_requests' %}" class="btn btn-primary">
+                    <p class="card-text mb-4">Check status of your ongoing repair requests.</p>
+                    <a href="{% url 'my_requests' %}" class="btn btn-violet btn-lg w-75 mx-auto">
                         <i class="bi bi-eye"></i> View Requests
                     </a>
                 </div>
             </div>
         </div>
-
         <!-- Request Repair Card -->
-        <div class="col-md-4 mb-4">
-            <div class="card shadow-sm h-100 text-center">
-                <img src="{% static 'images/request_repair.jpg' %}" class="card-img-top mx-auto mt-3" alt="Request Repair" style="width: 80px;">
-                <div class="card-body">
-                    <h5 class="card-title text-primary">
+        <div class="col-md-5 col-lg-4">
+            <div class="card border-0 shadow h-100 text-center dashboard-card-modern">
+                <div class="card-body py-4">
+                    <img src="{% static 'images/request_repair.jpg' %}" class="mb-3 rounded-circle shadow" alt="Request Repair" style="width: 100px;">
+                    <h5 class="card-title text-primary fw-bold mb-2">
                         <i class="bi bi-tools"></i> Request a Repair
                     </h5>
-                    <p class="card-text">Submit a new repair request quickly and easily.</p>
-                    <a href="{% url 'repair_request' %}" class="btn btn-success">
+                    <p class="card-text mb-4">Submit a new repair request quickly and easily.</p>
+                    <a href="{% url 'repair_request' %}" class="btn btn-violet btn-lg w-75 mx-auto">
                         <i class="bi bi-plus-circle"></i> Request Now
                     </a>
                 </div>
             </div>
         </div>
-
-       
-
-    </div> <!-- End Row -->
-
-</div> <!-- End Container -->
+    </div>
+</div>
 
 <style>
-    .container {
-        background: linear-gradient(to bottom right, #1f4b77, #245c99);
-        border-radius: 20px;
-        padding: 40px 20px;
+    .hero-image {
+        background: linear-gradient(90deg, #4b006e 0%, #b39ddb 100%);
+        border-radius: 0 0 32px 32px;
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.12);
+    }
+    .dashboard-img-wrapper {
+        height: 260px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .dashboard-img-move {
+        height: 100%;
+        object-fit: cover;
+        filter: brightness(0.9) blur(0px);
+        transition: transform 0.5s cubic-bezier(.25,.8,.25,1);
+        position: relative;
+        animation: moveImage 3s infinite alternate ease-in-out;
+        cursor: zoom-in;
+    }
+    .dashboard-img-move:hover {
+        transform: scale(1.12);
+        z-index: 2;
+        cursor: zoom-out;
+    }
+    @keyframes moveImage {
+        0% { left: 0; }
+        100% { left: 40px; }
+    }
+    .text-shadow {
+        text-shadow: 0 2px 8px rgba(0,0,0,0.4);
+    }
+    #customer-quotes {
+        min-height: 40px;
+    }
+    .dashboard-card-modern {
+        background: linear-gradient(135deg, #f8fbff 0%, #e3f0ff 100%);
+        border-radius: 18px;
+        transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .dashboard-card-modern:hover {
+        transform: translateY(-8px) scale(1.03);
+        box-shadow: 0 8px 32px rgba(44, 62, 80, 0.15);
     }
 </style>
+<style>
+    .btn-violet {
+        background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.12);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .btn-violet:hover, .btn-violet:focus {
+        background: linear-gradient(90deg, #4b006e 0%, #7c43bd 100%);
+        color: #fff;
+        transform: scale(1.04);
+    }
+</style>
+</style>
 {% endblock %}
+
+<script>
+    // Rotating motivational quotes for customers
+    const quotes = [
+        "Quality is not an act, it is a habit.",
+        "Your device deserves the best care!",
+        "Every repair is a step towards perfection.",
+        "Fast. Reliable. Trusted.",
+        "We fix, you relax.",
+        "Service with a smile, every time.",
+        "Track your progress, trust our process."
+    ];
+    let quoteIndex = 0;
+    function showQuote() {
+        document.querySelector('.quote').textContent = quotes[quoteIndex];
+        quoteIndex = (quoteIndex + 1) % quotes.length;
+    }
+    setInterval(showQuote, 3500);
+    window.onload = showQuote;
+</script>

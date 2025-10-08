@@ -5,25 +5,21 @@
 
 {% block content %}
 <div class="container my-5">
-
-    <!-- Header with optional image -->
-    <div class="text-center mb-4">
-        <h2 class="fw-bold text-primary"><i class="bi bi-tools me-2"></i>Job #{{ job.request_id }}</h2>
-        <p class="lead">
-            Device: <span class="fw-bold text-primary">{{ job.device }}</span>
+    <!-- Header with image and violet gradient -->
+    <div class="text-center mb-4 p-4 violet-header-gradient rounded-4 shadow-sm">
+        <h2 class="fw-bold text-white mb-2"><i class="bi bi-tools me-2"></i>Job #{{ job.request_id }}</h2>
+        <p class="lead text-white">
+            Device: <span class="fw-bold text-warning">{{ job.device }}</span>
         </p>
-        <!-- Optional image for the job -->
-        <img src="{% static 'images/jobs.jpg' %}" class="img-fluid rounded shadow-sm" alt="Job Image" style="max-height: 200px;">
+        <img src="{% static 'images/jobs.jpg' %}" class="img-fluid rounded-4 shadow-lg mt-2" alt="Job Image" style="max-width: 220px; height: 120px; object-fit: cover;">
     </div>
-
     <!-- Job Details Card -->
-    <div class="card shadow-sm mx-auto" style="max-width: 900px;">
+    <div class="card shadow-lg mx-auto job-details-card" style="max-width: 900px; border-radius: 18px;">
         <div class="card-body">
-            <h4 class="card-title mb-3">Job Details</h4>
-            
+            <h4 class="card-title mb-3 text-violet">Job Details</h4>
             <ul class="list-group list-group-flush mb-3">
                 <li class="list-group-item"><strong>Customer:</strong> {{ job.customer.name }}</li>
-                <li class="list-group-item"><strong>Device:</strong> <span class="text-primary fw-bold">{{ job.device }}</span></li>
+                <li class="list-group-item"><strong>Device:</strong> <span class="text-violet fw-bold">{{ job.device }}</span></li>
                 <li class="list-group-item"><strong>Issue:</strong> {{ job.description|default:"(no description)" }}</li>
                 <li class="list-group-item"><strong>Requested on:</strong> {{ job.request_date }}</li>
                 <li class="list-group-item"><strong>Warranty:</strong> {{ job.warranty_status }}</li>
@@ -32,26 +28,23 @@
                 <li class="list-group-item"><strong>Feedback:</strong> {{ job.feedback }}</li>
                 {% endif %}
             </ul>
-
             <!-- Action Buttons -->
             <div class="d-flex flex-wrap gap-2">
                 <a href="{% url 'technician_dashboard' %}" class="btn btn-secondary">
                     <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
                 </a>
-
                 <form method="post" action="{% url 'update_job' job.request_id %}">
                     {% csrf_token %}
                     {% if job.status != "In Progress" and job.status != "Completed" %}
-                    <button name="action" value="start" class="btn btn-primary">
+                    <button name="action" value="start" class="btn btn-violet">
                         <i class="bi bi-play-circle me-1"></i> Start Job
                     </button>
                     {% endif %}
                 </form>
-
                 <form method="post" action="{% url 'update_job' job.request_id %}">
                     {% csrf_token %}
                     {% if job.status != "Completed" %}
-                    <button name="action" value="complete" class="btn btn-success" onclick="return confirm('Mark this job as completed?')">
+                    <button name="action" value="complete" class="btn btn-violet" onclick="return confirm('Mark this job as completed?')">
                         <i class="bi bi-check-circle me-1"></i> Mark Completed
                     </button>
                     {% endif %}
@@ -59,6 +52,33 @@
             </div>
         </div>
     </div>
-
 </div>
+<style>
+    .violet-header-gradient {
+        background: linear-gradient(90deg, #7c43bd 0%, #4b006e 100%);
+        color: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.10);
+    }
+    .job-details-card {
+        background: linear-gradient(135deg, #f8fbff 0%, #e3f0ff 100%);
+        border-radius: 18px;
+        box-shadow: 0 8px 32px rgba(124,67,189,0.08);
+    }
+    .btn-violet {
+        background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.12);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .btn-violet:hover, .btn-violet:focus {
+        background: linear-gradient(90deg, #4b006e 0%, #7c43bd 100%);
+        color: #fff;
+        transform: scale(1.04);
+    }
+    .text-violet {
+        color: #7c43bd;
+    }
+</style>
 {% endblock %}

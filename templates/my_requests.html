@@ -11,9 +11,9 @@
 </head>
 <body class="bg-light">
 
-<div class="container my-5">
+<div class="container my-5 violet-bg rounded-4 p-4">
     <h2 class="text-center text-primary mb-4">
-        <i class="bi bi-tools"></i> My Repair Requests
+    <i class="bi bi-tools"></i> <span style="color:#7c43bd;">My Repair Requests</span>
     </h2>
 
     {% if messages %}
@@ -104,5 +104,15 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+    body {
+        background: linear-gradient(90deg, #4b006e 0%, #b39ddb 100%) !important;
+    }
+    .violet-bg {
+        background: linear-gradient(135deg, #b39ddb 0%, #ede7f6 100%);
+        border: 2px solid #7c43bd;
+        box-shadow: 0 8px 32px rgba(75,0,110,0.08);
+    }
+</style>
 </body>
 </html>

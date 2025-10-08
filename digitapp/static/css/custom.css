@@ -3,7 +3,7 @@ header.hero {
     height: 400px; /* fixed height to ensure image shows */
     /* overlay a semi-transparent white over the image */
     background: linear-gradient(rgba(255,255,255,0.3), rgba(255,255,255,0.3)), 
-                url("/static/images/apple.jpg") no-repeat center center;
+                url("/static/images/brain.jpg") no-repeat center center;
     background-size: cover;
     color: white;
     text-shadow: 1px 1px 5px rgba(0,0,0,0.7);
@@ -42,13 +42,35 @@ header.hero .btn {
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Buttons Hover */
+/* Buttons Styling */
+.btn-primary {
+    background-color: #4e73df;
+    border-color: #4e73df;
+}
+
 .btn-primary:hover {
-    background-color: #073d8d;
+    background-color: #2e59d9;
+    border-color: #2653a0;
+}
+
+.btn-success {
+    background-color: #1cc88a;
+    border-color: #1cc88a;
 }
 
 .btn-success:hover {
-    background-color: #072718;
+    background-color: #17a673;
+    border-color: #13855c;
+}
+
+.btn-outline-secondary {
+    color: #6c757d;
+    border-color: #6c757d;
+}
+
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
 }
 
 /* Card styling for login form */
@@ -62,10 +84,13 @@ header.hero .btn {
     box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
-/* Buttons hover */
-.btn-primary:hover {
-    background-color: #0b5ed7;
+/* Custom table header */
+.custom-table-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
 }
+
+/* Additional button styles if needed */
 
 /* Body background */
 body {
@@ -80,5 +105,17 @@ footer {
 /* Body background */
 body {
     background-color: #1f4b77;
+}
+
+/* Manage Technicians Table Header */
+.manage-tech-header {
+    background-color: #4b0082;
+    color: white;
+}
+
+/* Violet Header for Cards */
+.violet-header {
+    background-color: #4b0082;
+    color: white;
 }
 

@@ -8,38 +8,33 @@
     <div class="row justify-content-center">
         <div class="col-md-6">
             <div class="card shadow-sm">
-                <div class="card-header bg-primary text-white text-center">
+                <div class="card-header violet-header text-white text-center">
                     <h4><i class="bi bi-pencil-square me-2"></i> Edit Customer: {{ customer.name }}</h4>
                 </div>
                 <div class="card-body">
                     <form method="post">
                         {% csrf_token %}
-                        
                         <div class="mb-3">
                             <label class="form-label">Name:</label>
                             <input type="text" name="name" value="{{ customer.name }}" class="form-control" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Email:</label>
                             <input type="email" name="email" value="{{ customer.email }}" class="form-control" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Phone:</label>
                             <input type="text" name="phone" value="{{ customer.phone }}" class="form-control" required>
                         </div>
-
                         <div class="mb-3">
                             <label class="form-label">Password:</label>
                             <input type="text" name="password" value="{{ customer.password }}" class="form-control" required>
                         </div>
-
                         <div class="d-flex justify-content-between">
-                            <a href="{% url 'view_customers' %}" class="btn btn-outline-secondary">
+                            <a href="{% url 'view_customers' %}" class="btn btn-outline-violet">
                                 <i class="bi bi-arrow-left-circle me-1"></i> Back
                             </a>
-                            <button type="submit" class="btn btn-success">
+                            <button type="submit" class="btn btn-violet">
                                 <i class="bi bi-save me-1"></i> Save Changes
                             </button>
                         </div>
@@ -49,6 +44,37 @@
         </div>
     </div>
 </div>
+<style>
+    .violet-header {
+        background: linear-gradient(90deg, #7c43bd 0%, #4b006e 100%);
+        color: #fff;
+        border-radius: 12px 12px 0 0;
+        box-shadow: 0 2px 8px rgba(124,67,189,0.10);
+        border-bottom: 2px solid #7c43bd;
+    }
+    .btn-violet {
+        background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.12);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .btn-violet:hover, .btn-violet:focus {
+        background: linear-gradient(90deg, #4b006e 0%, #7c43bd 100%);
+        color: #fff;
+        transform: scale(1.04);
+    }
+    .btn-outline-violet {
+        border: 2px solid #7c43bd;
+        color: #7c43bd;
+        background: #fff;
+        transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline-violet:hover, .btn-outline-violet:focus {
+        background: #7c43bd;
+        color: #fff;
+    }
+</style>
 {% endblock %}
 
 

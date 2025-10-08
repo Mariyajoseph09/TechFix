@@ -5,13 +5,13 @@
 
 {% block content %}
 <div class="container my-5">
-    <h2 class="text-center mb-4 text-primary">
+    <h2 class="text-center mb-4 text-violet">
         <i class="bi bi-people me-2"></i> Registered Customers
     </h2>
 
     <div class="table-responsive">
-        <table class="table table-bordered table-hover align-middle text-center">
-            <thead class="table-dark">
+        <table class="table table-bordered table-hover align-middle text-center customers-table-violet">
+            <thead class="table-violet-header">
                 <tr>
                     <th>ID</th>
                     <th>Name</th>
@@ -28,8 +28,7 @@
                     <td>{{ customer.email }}</td>
                     <td>{{ customer.phone }}</td>
                     <td>
-                        <a href="{% url 'edit_customer' customer.user_id %}" 
-                           class="btn btn-sm btn-primary">
+                        <a href="{% url 'edit_customer' customer.user_id %}" class="btn btn-violet btn-sm">
                            <i class="bi bi-pencil-square"></i> Edit
                         </a>
                     </td>
@@ -45,9 +44,47 @@
 
     <!-- Back to Dashboard -->
     <div class="text-center mt-4">
-        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-secondary">
+        <a href="{% url 'admin_dashboard' %}" class="btn btn-outline-violet">
             <i class="bi bi-arrow-left-circle me-1"></i> Back to Dashboard
         </a>
     </div>
 </div>
+
+<style>
+    .customers-table-violet {
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.08);
+    }
+    .table-violet-header {
+        background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%);
+        color: #fff;
+        border: none;
+    }
+    .btn-violet {
+        background: linear-gradient(90deg, #7c43bd 0%, #b39ddb 100%);
+        color: #fff;
+        border: none;
+        box-shadow: 0 4px 16px rgba(124,67,189,0.12);
+        transition: background 0.2s, transform 0.2s;
+    }
+    .btn-violet:hover, .btn-violet:focus {
+        background: linear-gradient(90deg, #4b006e 0%, #7c43bd 100%);
+        color: #fff;
+        transform: scale(1.04);
+    }
+    .btn-outline-violet {
+        border: 2px solid #7c43bd;
+        color: #7c43bd;
+        background: #fff;
+        transition: background 0.2s, color 0.2s;
+    }
+    .btn-outline-violet:hover, .btn-outline-violet:focus {
+        background: #7c43bd;
+        color: #fff;
+    }
+    .text-violet {
+        color: white;
+    }
+</style>
 {% endblock %}
